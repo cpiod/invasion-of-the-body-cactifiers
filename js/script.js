@@ -69,7 +69,8 @@ monogatari.assets ('images', {
 
 // Define the backgrounds for each scene.
 monogatari.assets ('scenes', {
-
+	"Metro": "metro_pf.jpg",
+	"Rue": "rue_pf.jpg"
 });
 
 
@@ -84,9 +85,10 @@ monogatari.characters ({
 monogatari.script ({
 	// The game starts here.
 	'Start': [
-		'show scene #f7f6f6 with fadeIn',
-		'show notification Welcome',
-		{
+		'clear',
+		'centered "Dans la vie, il n\'y a que des cactus" <br/>Jacques Dutronc',
+		'jump Metro'
+/*		{
 			'Input': {
 				'Text': 'What is your name?',
 				'Validation': function (input) {
@@ -109,8 +111,8 @@ monogatari.script ({
 				},
 				'Warning': 'You must enter a name!'
 			}
-		},
-		'y Hi {{player.name}} Welcome to Monogatari!',
+		},*/
+/*		'y Hi {{player.name}} Welcome to Monogatari!',
 		{
 			'Choice': {
 				'Dialog': 'y Have you already read some documentation?',
@@ -123,24 +125,21 @@ monogatari.script ({
 					'Do': 'jump No'
 				}
 			}
-		}
+		}*/
 	],
 
-	'Yes': [
-		'y Thats awesome!',
-		'y Then you are ready to go ahead and create an amazing Game!',
-		'y I can’t wait to see what story you’ll tell!',
-		'end'
+	'Metro' : [
+		'show background Metro',
+		'At least my work day is finished.',
+		'I\'m tired.',
+		'jump Rue-chien'
 	],
 
-	'No': [
-
-		'y You can do it now.',
-
-		'show message Help',
-
-		'y Go ahead and create an amazing Game!',
-		'y I can’t wait to see what story you’ll tell!',
-		'end'
+	'Rue-chien' : [
+		'show background Rue',
+		'Oh my god. What is this?',
+		'This was weird...',
+		'Maybe I\'m just tired.',
+		'Let\'s get home.'
 	]
 });
