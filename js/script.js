@@ -5,7 +5,7 @@ monogatari.action ('message').messages ({
 	'credits': {
 		title: 'Who did this?!',
 		body: `
-		<p>Idea, writing and hand-drawn characters by <a href='https://www.deviantart.com/wickedwormwood'>Wickedwormwood</a></p>
+		<p>Idea, writing and hand-drawn characters and backgrounds by <a href='https://www.deviantart.com/wickedwormwood'>Wickedwormwood</a></p>
 		<p>Scripting, backgrounds and sound design by <a href='https://cpiod.itch.io/'>cpiod</a></p>
 		`
 	}
@@ -65,8 +65,8 @@ monogatari.assets ('images', {
 	"dog_maskless": "3.png",
 	"dog_almost_maskless": "3_2.png",
 	"dead_dog": "4.png",
-	"afraid_man": "11.png",
-	"dead_man": "12.png",
+	"afraid_man": "11-1run.png",
+	"dead_man": "11-2runexplode.png",
 });
 
 // Define the backgrounds for each scene.
@@ -76,18 +76,20 @@ monogatari.assets ('scenes', {
 	"Rue": "2.jpg",
 	"Entree_0": "5_et_demi.jpg",
 	"Entree_1": "6.png",
-	"Entree_2": "7.png",
-	"Elevator_closed": "elevator1_pf.jpg",
-	"Couloir": "couloir_pf.jpg"
+	"Entree_2": "7grand.png",
+	"Elevator": "8-9.png",
+	"Elevator_floor2": "9.png",
+	"Couloir": "couloir_pf.jpg",
+	"Floor2": "9-2secondfloor.png",
+	"Floor2_cactus": "9-3-secondfloor.png",
+	"Floor2_dead": "9-4-secondfloor.png",
+	"Floor3": "11-thirdfloor.png",
+	"Floor3_dead": "11-thirdfloor-plus-explose.png",
 });
 
 
 // Define the Characters
 monogatari.characters ({
-	'm': {
-		name: 'Some man',
-		color: '#5bcaff'
-	},
 	'd': {
 		name: 'Darling',
 		color: '#5bcaff'
@@ -102,45 +104,8 @@ monogatari.script ({
 		'centered <p style="color:white;">"Dans la vie, il n\'y a que des cactus" <br/>Jacques Dutronc</p>',
 		'play music Begin loop',
 		'centered <p style="color:white;">"Life is filled with cacti." <br/>Jack of Trunk</p>',
+		//'jump Ascenseur',
 		'jump Metro'
-/*		{
-			'Input': {
-				'Text': 'What is your name?',
-				'Validation': function (input) {
-					return input.trim ().length > 0;
-				},
-				'Save': function (input) {
-					this.storage ({
-						player: {
-							name: input
-						}
-					});
-					return true;
-				},
-				'Revert': function () {
-					this.storage ({
-						player: {
-							name: ''
-						}
-					});
-				},
-				'Warning': 'You must enter a name!'
-			}
-		},*/
-/*		'y Hi {{player.name}} Welcome to Monogatari!',
-		{
-			'Choice': {
-				'Dialog': 'y Have you already read some documentation?',
-				'Yes': {
-					'Text': 'Yes',
-					'Do': 'jump Yes'
-				},
-				'No': {
-					'Text': 'No',
-					'Do': 'jump No'
-				}
-			}
-		}*/
 	],
 
 	'Metro' : [
@@ -200,16 +165,16 @@ monogatari.script ({
 
 	'Ascenseur' : [
 		// 8
-		'show background Elevator_outside',
-		'I live on the third floor',
+//		'show background Elevator_outside',
+//		'I live on the third floor',
 		// 9
-		'show background Elevator_closed',
-		'show background Elevator_closed with shake-horizontal 1',
+		'show background Elevator',
+		'show background Elevator with shake-horizontal 1',
 		'First floor',
 		'wait 1000',
-		'show background Elevator_closed with shake-horizontal 1',
+		'show background Elevator_floor2 with shake-horizontal 1 with fadeIn',
 		'Second floor',
-		'show background Elevator_closed with shake-horizontal 1',
+		'show background Elevator with shake-horizontal 1',
 		'wait 1000',
 		'third fl... Wait what was that ?!',
 		{
@@ -217,10 +182,10 @@ monogatari.script ({
 				'Dialog': '',
 				'f3': {
 					'Text': 'My brain is tricking me...',
-					'Do': 'jump Home'
+					'Do': 'jump Floor3'
 				},
 				'f2': {
-					'Text': 'I need to get this',
+					'Text': 'I need to check that thing.',
 					'Do': 'jump Floor2'
 				}
 			}
@@ -228,13 +193,32 @@ monogatari.script ({
 	],
 
 	'Floor2' : [
+
+		'show background Floor2 with fadeIn',
+
+		'Nothing...',
+		'show background Floor2_cactus with fadeIn',
+		'wait 1000',
+
+		'show image gun bottom',
+		'wait 1000',
+		'show background Floor2_dead',
+		'show image gun bottom',
+		'wait 1000',
+		'hide image gun',
+
+		'Stay dead.',
+		'I need to go home.',
+		'jump Floor3'
+	],
+
+	'Floor3' : [
 		// 10
-		'show background floor with fadeIn',
+		'show background Floor3 with fadeIn',
 		// 11
 		'wait 1000',
-		'm They\'re coming!!',
-		'!!',
 		'show image afraid_man center',
+		'!!',
 		// 12
 		'show image gun bottom',
 		'wait 1000',
@@ -245,6 +229,8 @@ monogatari.script ({
 		'hide image gun',
 		// 13
 		'Who knows... He may have been one of them.',
+		'hide image dead_man',
+		'show background Floor3_dead',
 		'Anyway, he was dangerous.',
 		'jump Home'
 	],
@@ -310,12 +296,6 @@ monogatari.script ({
 
 		'jump credits'
 	],	
-
-	'Floor2' : [
-		'I am on the second floor',
-		'jump credits'
-	],	
-
 
 	'credits' : [
 		// TODO change music
