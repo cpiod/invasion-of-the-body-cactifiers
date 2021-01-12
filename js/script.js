@@ -7,6 +7,7 @@ monogatari.action ('message').messages ({
 		body: `
 		<p>Idea, writing and hand-drawn characters and backgrounds by <a href='https://www.deviantart.com/wickedwormwood'>Wickedwormwood</a></p>
 		<p>Scripting, backgrounds and sound design by <a href='https://cpiod.itch.io/'>cpiod</a></p>
+		<p>Music by Lustmord and some bad guy we won't make publicity about"
 		`
 	}
 });
@@ -50,7 +51,9 @@ monogatari.assets ('voices', {
 
 // Define the sounds used in the game.
 monogatari.assets ('sounds', {
-
+	"gunshot": "shotgun.mp3",
+	"bell": "elevator-bell.mp3",
+	"scream": "scream.mp3"
 });
 
 // Define the videos used in the game.
@@ -85,6 +88,7 @@ monogatari.assets ('scenes', {
 	"Floor2_dead": "9-4-secondfloor.png",
 	"Floor3": "11-thirdfloor.png",
 	"Floor3_dead": "11-thirdfloor-plus-explose.png",
+	"Home": "14.png"
 });
 
 
@@ -93,6 +97,10 @@ monogatari.characters ({
 	'd': {
 		name: 'Darling',
 		color: '#5bcaff'
+	},
+	'y': {
+		name: 'You',
+		color: '#5bffca'
 	}
 
 });
@@ -101,10 +109,11 @@ monogatari.script ({
 	// The game starts here.
 	'Start': [
 		'clear',
-		'centered <p style="color:white;">"Dans la vie, il n\'y a que des cactus" <br/>Jacques Dutronc</p>',
+		'centered <b><p style="color:red;">WARNING: may contain violence, blood and cacti</p></b>',
 		'play music Begin loop',
-		'centered <p style="color:white;">"Life is filled with cacti." <br/>Jack of Trunk</p>',
-		//'jump Ascenseur',
+		'centered <h1 style="color:red">INVASION OF THE BODY CACTIFIERS</h1>',
+		'centered <p style="color:white;">"Dans la vie, il n\'y a que des cactus" <br/>Jacques Dutronc<br/><br/>"Life is filled with cacti." <br/>Jack of Trunk</p>',
+//		'jump Ascenseur',
 		'jump Metro'
 	],
 
@@ -122,31 +131,33 @@ monogatari.script ({
 		'show background Rue',
 		// 2: chien écriteau
 		'show image dog_pancarte center with fadeIn', 
-		'Hello neighbor.',
+		'y Hello neighbor!',
+		'He is so polite. Even his dog barks in silence.',
 		// 2.5: rien
 		'clear',
 		'hide image dog_pancarte center with fadeOut',
 		'wait 2000',
 		// 3: chien sans masque
 		'show image dog_almost_maskless center with fadeIn', 
-		'Hi !',
+		'y Oh hi Mark.',
 		'show image dog_maskless center', 
 		'hide image dog_almost_maskless',
-		'Oh my god. What is this?',
+		'Oh my god! What is this?',
 		// 4: gun
 		'show image gun bottom',
-		'wait 1000',
+		'wait 900',
+		'play sound gunshot',
+		'wait 100',
 		'hide image dog_maskless',
 		'show image dead_dog center', 
 		'show image gun bottom',
 		'wait 1000',
 		'hide image gun',
 		// 5
-		'Sorry for about dog, sir.',
+		'y Sorry for about dog, Mark.',
 		'hide image dead_dog with fadeOut',
-		'That was weird...',
-		'Maybe I\'m just tired.',
-		'Let\'s get home.',
+		'That was weird... I thought Mark died two years ago.',
+		'Maybe I\'m just tired. Let\'s get home.',
 		'jump Immeuble'
 	],
 
@@ -156,10 +167,11 @@ monogatari.script ({
 		'Home sweet home.',
 		// 6
 		'show background Entree_1',
-		'Hello, Mrs. Jenkins',
+		'y Hello, Mrs. Jenkins',
 		// 7
 		'show background Entree_2',
-		'Oh, you know, as usual. Well, I\'m gonna go.',
+		'y Oh, you know, as usual. Well, I\'m gonna go.',
+		'She is colorful today.',
 		'jump Ascenseur'
 	],
 
@@ -170,18 +182,23 @@ monogatari.script ({
 		// 9
 		'show background Elevator',
 		'show background Elevator with shake-horizontal 1',
-		'First floor',
 		'wait 1000',
-		'show background Elevator_floor2 with shake-horizontal 1 with fadeIn',
-		'Second floor',
+		'play sound bell',
+		'First floor',
 		'show background Elevator with shake-horizontal 1',
 		'wait 1000',
-		'third fl... Wait what was that ?!',
+		'show background Elevator_floor2 with fadeIn',
+		'play sound bell',
+		'Second floor',
+		'show background Elevator with shake-horizontal 1 with fadeIn',
+		'wait 1000',
+		'play sound bell',
+		'Third fl... Wait what was that ?!',
 		{
 			'Choice': {
 				'Dialog': '',
 				'f3': {
-					'Text': 'My brain is tricking me...',
+					'Text': 'My brain is tricking me... Let\'s go home.',
 					'Do': 'jump Floor3'
 				},
 				'f2': {
@@ -201,7 +218,9 @@ monogatari.script ({
 		'wait 1000',
 
 		'show image gun bottom',
-		'wait 1000',
+		'wait 900',
+		'play sound gunshot',
+		'wait 100',
 		'show background Floor2_dead',
 		'show image gun bottom',
 		'wait 1000',
@@ -216,12 +235,15 @@ monogatari.script ({
 		// 10
 		'show background Floor3 with fadeIn',
 		// 11
+		'play sound scream',
 		'wait 1000',
 		'show image afraid_man center',
 		'!!',
 		// 12
 		'show image gun bottom',
-		'wait 1000',
+		'wait 900',
+		'play sound gunshot',
+		'wait 100',
 		'hide image afraid_man',
 		'show image dead_man center', 
 		'show image gun bottom',
@@ -231,14 +253,15 @@ monogatari.script ({
 		'Who knows... He may have been one of them.',
 		'hide image dead_man',
 		'show background Floor3_dead',
-		'Anyway, he was dangerous.',
+		'Anyway, he was dangerous. If only there were a way to tell them apart from humans... I don\'t want to kill a neighbor by mistake.',
+		// 14
+		'Darling, I\'m home!',
 		'jump Home'
 	],
 
 	'Home' : [
-		// 14
-		'Darling, I\'m home!',
 		// 15
+		'show background Home',
 		"d Oh, hello honey ! how was your day ?",
 		"Exhausting.",
 		"Strange things keep happening, and...",
