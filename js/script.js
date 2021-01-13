@@ -141,7 +141,6 @@ monogatari.script ({
 		'play music Begin loop',
 		'centered <h1 style="color:red">INVASION OF THE BODY CACTIFIERS</h1>',
 		'centered <p style="color:white;">"Dans la vie, il n\'y a que des cactus" <br/>Jacques Dutronc<br/><br/>"Life is filled with cacti." <br/>Jack of Trunk</p>',
-		'jump back_home',
 		'jump Metro'
 	],
 
