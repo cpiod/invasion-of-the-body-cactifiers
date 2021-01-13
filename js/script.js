@@ -6,8 +6,8 @@ monogatari.action ('message').messages ({
 		title: 'Who did this?!',
 		body: `
 		<p>Idea, writing, drawings and backgrounds by <a href='https://www.deviantart.com/wickedwormwood'>Wickedwormwood</a></p>
-		<p>Scripting, backgrounds and sound design by <a href='https://cpiod.itch.io/'>cpiod</a></p>
-		<p>Music by Lustmord and some bad guy we won't make publicity about"
+		<p>Writing, scripting, backgrounds and sound design by <a href='https://cpiod.itch.io/'>cpiod</a></p>
+		<p>Music by Lustmord, Lena Raine, and some bad guy we won't make publicity about"
 		`
 	}
 });
@@ -55,7 +55,11 @@ monogatari.assets ('sounds', {
 	"gunshot": "shotgun.mp3",
 	"bell": "elevator-bell.mp3",
 	"scream": "scream.mp3",
-	"dundundun": "dun-dun-dun.mp3"
+	"dundundun": "dun-dun-dun.mp3",
+	"car": "car.mp3",
+	"blast": "blast.mp3",
+//	"wind": "wind.mp3",
+	"collision": "collision.mp3"
 });
 
 // Define the videos used in the game.
@@ -100,7 +104,16 @@ monogatari.assets ('scenes', {
 	"super_dead": "19_2.png",
 	"caisse": "19-3caisse.png",
 	"darling_dead": "22.png",
-	"darling_dead_flou": "23.gif"
+	"darling_dead_flou": "23.gif",
+	"voiture": "24wheel_and_cacti.gif",
+	"arsenal1": "25_1_arsenal.png",
+	"arsenal2": "25_2_tour_arsenal.jpg",
+	"bouton1": "26-1.png",
+	"bouton2": "26-2.png",
+	"boom1": "26-3.jpg",
+	"boom2": "27_1.png",
+	"boom3": "27_2.png",
+	"final": "30-cacti-horror.gif"
 });
 
 
@@ -124,11 +137,11 @@ monogatari.script ({
 	// The game starts here.
 	'Start': [
 		'clear',
-		'centered <b><p style="color:red;">WARNING: may contain violence, blood and cacti</p></b>',
+		'centered <b><p style="color:red;">WARNING: contains violence, censored male nipples, blood and cacti</p></b>',
 		'play music Begin loop',
 		'centered <h1 style="color:red">INVASION OF THE BODY CACTIFIERS</h1>',
 		'centered <p style="color:white;">"Dans la vie, il n\'y a que des cactus" <br/>Jacques Dutronc<br/><br/>"Life is filled with cacti." <br/>Jack of Trunk</p>',
-//		'jump back_home',
+//		'jump the_end',
 		'jump Metro'
 	],
 
@@ -250,8 +263,8 @@ monogatari.script ({
 		// 10
 		'show background Floor3 with fadeIn',
 		// 11
-		'play sound scream',
 		'wait 1000',
+		'play sound scream',
 		'show image afraid_man center',
 		'!!',
 		// 12
@@ -268,7 +281,7 @@ monogatari.script ({
 		'Who knows... He may have been one of them.',
 		'hide image dead_man',
 		'show background Floor3_dead',
-		'Anyway, he was dangerous. If only there were a way to tell them apart from humans... I don\'t want to kill a neighbor by mistake.',
+		'Anyway, he was dangerous. If only there was a way to tell them apart from humans... I don\'t want to kill a neighbor by mistake.',
 		// 14
 		'y Darling, I\'m home!',
 		'jump Home'
@@ -287,13 +300,14 @@ monogatari.script ({
 		'show background Cuisine',
 		"y Wh... what is this?",
 		"d:normal <i>Oh, this little plant! A man on on the streets was selling them.</i>",
-		"d:normal <i>I think it's nice... And it was so cheap! It warms the room, don't you think?</i>",
+		"d:normal <i>I think it's nice... And it was so cheap! It warms up the room, don't you think?</i>",
 		"y ...",
 		"y ... yeah.",
 		// 17
-		"d:normal <i>Oh, my! I really wanted to make some hummus but I forgot the chick peas!</i>",
+		"d:normal <i>Oh, my! I really wanted to make some hummus but I forgot the chickpeas!</i>",
 		"d:normal <i>Could you go buy some?</i>",
 		"y ... OK, I won't be long.",
+		"jump supermarket"
 	],
 
 	'supermarket' : [
@@ -333,14 +347,15 @@ monogatari.script ({
 		'wait 1000',
 		'!!',
 		'wait 2000',
-		"It's my turn finally.",
+		"It's finally my turn.",
 		'stop music Supermarket',
 		'jump back_home',
 	],
 
 	'back_home' : [
+		'play music Main loop',
 		'show background Entree_0 with fadeIn',
-		'I can wait to eat that hummus. Darling is such a wonderful cook.',
+		'I need to tell darling. It\'s the cacti! We need to throw the one he got.',
 		//20
 		'show background Jenkins-reveal1',
 		'play sound dundundun',
@@ -359,7 +374,6 @@ monogatari.script ({
 		'Poor Mrs. Jenkins... You bastards!!',
 
 		// 21
-		'stop music Supermarket',
 		'show background Home-no-darling',
 		"y Honey! Things are really getting weird out there!",
 		// 21.5
@@ -368,14 +382,51 @@ monogatari.script ({
 		"y Hon...",
 		"y No, no...",
 		'show background darling_dead',
-		'play music Main loop',
 		// changement de musique
 		"y NOOOOOO!",
 		'show background darling_dead_flou',
 		"wait 3000",
 
-		'jump credits'
+		'jump the_end'
 	],	
+
+	"the_end" : [
+		'play sound car loop fade 1',
+		'show background voiture with fadeIn with shake-little infinite',
+		'play sound collision loop',
+		'I\'m gonna destroy this town.',
+		'I know where the arsenal is.',
+		'No cactus will survive the explosion.',
+		'stop sound collision',
+		'stop sound car',
+//		'play sound wind loop',
+		'show background arsenal1 with fadeIn',
+		'The arsenal...',
+		'show background arsenal2 with fadeIn',
+		'They keep them in this building.',
+		'The bombs that will end us all.',
+//		'stop sound wind',
+		'show background bouton1 with fadeIn',
+		'I guess I\'ll die in the explosion... I won\'t be able to warn the world...',
+		'I hope...',
+		'show background bouton2 with fadeIn',
+		'No. I don\'t have hope anymore.',
+		'clear',
+		'stop music Main',
+		'play sound blast',
+		'show background boom1 with fadeIn',
+		'wait 5000',
+		'show background boom2 with fadeIn',
+		'wait 2000',
+		'show background boom3 with fadeIn',
+		'wait 2000',
+		'I survived. That\'s a miracle.',
+		'show background final with fadeIn',
+		"That's a sign. I'm the only one who can save the world.",
+		'wait 3000',
+		'centered <h1 style="color:red">INVASION OF THE BODY CACTIFIERS</h1>',
+		'jump credits'
+	],
 
 	'credits' : [
 		// TODO change music
