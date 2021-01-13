@@ -7,7 +7,8 @@ monogatari.action ('message').messages ({
 		body: `
 		<p>Idea, writing, drawings and backgrounds by <a href='https://www.deviantart.com/wickedwormwood'>Wickedwormwood</a></p>
 		<p>Writing, scripting, backgrounds and sound design by <a href='https://cpiod.itch.io/'>cpiod</a></p>
-		<p>Music by Lustmord, Lena Raine, and some bad guy we won't make publicity about"
+		<p>Darling's base was made by BritishCyborg-69 on deviantart<p>
+		<p>Music by Lustmord, Lena Raine, and some guy we won't make publicity about
 		`
 	}
 });
@@ -58,7 +59,6 @@ monogatari.assets ('sounds', {
 	"dundundun": "dun-dun-dun.mp3",
 	"car": "car.mp3",
 	"blast": "blast.mp3",
-//	"wind": "wind.mp3",
 	"collision": "collision.mp3"
 });
 
@@ -141,7 +141,7 @@ monogatari.script ({
 		'play music Begin loop',
 		'centered <h1 style="color:red">INVASION OF THE BODY CACTIFIERS</h1>',
 		'centered <p style="color:white;">"Dans la vie, il n\'y a que des cactus" <br/>Jacques Dutronc<br/><br/>"Life is filled with cacti." <br/>Jack of Trunk</p>',
-//		'jump the_end',
+		'jump back_home',
 		'jump Metro'
 	],
 
@@ -278,7 +278,7 @@ monogatari.script ({
 		'wait 1000',
 		'hide image gun',
 		// 13
-		'Who knows... He may have been one of them.',
+		'He was certainly one of them.',
 		'hide image dead_man',
 		'show background Floor3_dead',
 		'Anyway, he was dangerous. If only there was a way to tell them apart from humans... I don\'t want to kill a neighbor by mistake.',
@@ -361,9 +361,9 @@ monogatari.script ({
 		'play sound dundundun',
 		// avec masque
 		// 21.2 sans masque
-		'Oh no! Not you!',
+		'Oh no! Not you, Mrs. Jenkins!',
+		'clear',
 		'show background Jenkins-reveal2',
-
 		'show image gun bottom',
 		'wait 200',
 		'play sound gunshot',
@@ -372,10 +372,13 @@ monogatari.script ({
 		'wait 800',
 		'hide image gun',
 		'Poor Mrs. Jenkins... You bastards!!',
+		'You will pay for what you did!',
 
 		// 21
 		'show background Home-no-darling',
 		"y Honey! Things are really getting weird out there!",
+		"y The cacti! They can perfectly imitate any human! They even got Mrs. Jenkins, can you believe it?",
+		"y We need to trash yours before it's too late!",
 		// 21.5
 		"y Honey?",
 		// 22
@@ -391,21 +394,21 @@ monogatari.script ({
 	],	
 
 	"the_end" : [
-		'play sound car loop fade 1',
-		'show background voiture with fadeIn with shake-little infinite',
-		'play sound collision loop',
+		'show background black',
 		'I\'m gonna destroy this town.',
+		'play sound car loop',
+		'show background voiture with fadeIn with shake-little infinite',
+		'wait 2000',
+		'play sound collision loop',
 		'I know where the arsenal is.',
 		'No cactus will survive the explosion.',
 		'stop sound collision',
 		'stop sound car',
-//		'play sound wind loop',
 		'show background arsenal1 with fadeIn',
 		'The arsenal...',
 		'show background arsenal2 with fadeIn',
 		'They keep them in this building.',
 		'The bombs that will end us all.',
-//		'stop sound wind',
 		'show background bouton1 with fadeIn',
 		'I guess I\'ll die in the explosion... I won\'t be able to warn the world...',
 		'I hope...',
@@ -414,7 +417,7 @@ monogatari.script ({
 		'clear',
 		'stop music Main',
 		'play sound blast',
-		'show background boom1 with fadeIn',
+		'show background boom1 with fadeIn with shake-hard infinite',
 		'wait 5000',
 		'show background boom2 with fadeIn',
 		'wait 2000',
@@ -429,7 +432,6 @@ monogatari.script ({
 	],
 
 	'credits' : [
-		// TODO change music
 		'show message credits',
 		'end'
 	]
