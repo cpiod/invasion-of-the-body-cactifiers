@@ -88,7 +88,8 @@ monogatari.assets ('scenes', {
 	"Floor2_dead": "9-4-secondfloor.png",
 	"Floor3": "11-thirdfloor.png",
 	"Floor3_dead": "11-thirdfloor-plus-explose.png",
-	"Home": "14.png"
+	"Home": "14.png",
+	"Cuisine": "16-cuisine.png"
 });
 
 
@@ -262,21 +263,22 @@ monogatari.script ({
 	'Home' : [
 		// 15
 		'show background Home',
-		"d Oh, hello honey ! how was your day ?",
+		"d Oh, hello honey! How was your day?",
 		"Exhausting.",
 		"Strange things keep happening, and...",
 		"I had this weird feeling- ",
 		"d Oh, let it go, don't think about this. You're home now.",
-		"d Come eat something !",
+		"d Come eat something!",
 		// 16
-		"Wh... what is this ?",
-		"d Oh, this little plant ! A man on on the streets was seeling them.",
-		"d I think it's nice... And it was so cheap ! It warms the room, don't you think ?",
+		'show background Cuisine',
+		"Wh... what is this?",
+		"d Oh, this little plant! A man on on the streets was seeling them.",
+		"d I think it's nice... And it was so cheap! It warms the room, don't you think?",
 		"...",
 		"... yeah.",
 		// 17
-		"d Oh, my ! I really wanted to make some hummus bus I forgot the chick peas !",
-		"d Could you go buy some ?",
+		"d Oh, my! I really wanted to make some hummus bus I forgot the chick peas!",
+		"d Could you go buy some?",
 		"... OK, I won't be long.",
 		// 18
 		// mort de l'ascenseur
