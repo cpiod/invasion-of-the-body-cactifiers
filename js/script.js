@@ -5,7 +5,7 @@ monogatari.action ('message').messages ({
 	'credits': {
 		title: 'Who did this?!',
 		body: `
-		<p>Idea, writing and hand-drawn characters and backgrounds by <a href='https://www.deviantart.com/wickedwormwood'>Wickedwormwood</a></p>
+		<p>Idea, writing, drawings and backgrounds by <a href='https://www.deviantart.com/wickedwormwood'>Wickedwormwood</a></p>
 		<p>Scripting, backgrounds and sound design by <a href='https://cpiod.itch.io/'>cpiod</a></p>
 		<p>Music by Lustmord and some bad guy we won't make publicity about"
 		`
@@ -41,7 +41,8 @@ monogatari.assets ('gallery', {
 // Define the music used in the game.
 monogatari.assets ('music', {
 	"Begin": "begin.mp3",
-	"Main": "main.mp3"
+	"Main": "main.mp3",
+	"Supermarket": "supermarket.mp3"
 });
 
 // Define the voice files used in the game.
@@ -53,7 +54,8 @@ monogatari.assets ('voices', {
 monogatari.assets ('sounds', {
 	"gunshot": "shotgun.mp3",
 	"bell": "elevator-bell.mp3",
-	"scream": "scream.mp3"
+	"scream": "scream.mp3",
+	"dundundun": "dun-dun-dun.mp3"
 });
 
 // Define the videos used in the game.
@@ -63,7 +65,7 @@ monogatari.assets ('videos', {
 
 // Define the images used in the game.
 monogatari.assets ('images', {
-	"gun": "gun.png",
+	"gun": "gunnity_gunnito.png",
 	"dog_pancarte": "2.png",
 	"dog_maskless": "3.png",
 	"dog_almost_maskless": "3_2.png",
@@ -89,7 +91,16 @@ monogatari.assets ('scenes', {
 	"Floor3": "11-thirdfloor.png",
 	"Floor3_dead": "11-thirdfloor-plus-explose.png",
 	"Home": "14.png",
-	"Cuisine": "16-cuisine.png"
+	"Home-no-darling": "21.png",
+	"Cuisine": "16-cuisine.png",
+	"Jenkins-reveal1": "20-1.gif",
+	"Jenkins-reveal2": "20-2.gif",
+	"Rue2": "19_0.png",
+	"super": "19_1.png",
+	"super_dead": "19_2.png",
+	"caisse": "19-3caisse.png",
+	"darling_dead": "22.png",
+	"darling_dead_flou": "23.gif"
 });
 
 
@@ -97,7 +108,10 @@ monogatari.assets ('scenes', {
 monogatari.characters ({
 	'd': {
 		name: 'Darling',
-		color: '#5bcaff'
+		color: '#5bcaff',
+		expressions: {
+			normal: "darling_icon.png"
+		}
 	},
 	'y': {
 		name: 'You',
@@ -114,7 +128,7 @@ monogatari.script ({
 		'play music Begin loop',
 		'centered <h1 style="color:red">INVASION OF THE BODY CACTIFIERS</h1>',
 		'centered <p style="color:white;">"Dans la vie, il n\'y a que des cactus" <br/>Jacques Dutronc<br/><br/>"Life is filled with cacti." <br/>Jack of Trunk</p>',
-//		'jump Ascenseur',
+//		'jump back_home',
 		'jump Metro'
 	],
 
@@ -143,7 +157,7 @@ monogatari.script ({
 		'y Oh hi Mark.',
 		'show image dog_maskless center', 
 		'hide image dog_almost_maskless',
-		'Oh my god! What is this?',
+		'y Oh my god! What is this?',
 		// 4: gun
 		'show image gun bottom',
 		'wait 900',
@@ -181,7 +195,7 @@ monogatari.script ({
 //		'show background Elevator_outside',
 //		'I live on the third floor',
 		// 9
-		'show background Elevator',
+//		'show background Elevator',
 		'show background Elevator with shake-horizontal 1',
 		'wait 1000',
 		'play sound bell',
@@ -256,68 +270,109 @@ monogatari.script ({
 		'show background Floor3_dead',
 		'Anyway, he was dangerous. If only there were a way to tell them apart from humans... I don\'t want to kill a neighbor by mistake.',
 		// 14
-		'Darling, I\'m home!',
+		'y Darling, I\'m home!',
 		'jump Home'
 	],
 
 	'Home' : [
 		// 15
 		'show background Home',
-		"d Oh, hello honey! How was your day?",
-		"Exhausting.",
-		"Strange things keep happening, and...",
-		"I had this weird feeling- ",
-		"d Oh, let it go, don't think about this. You're home now.",
-		"d Come eat something!",
+		"d:normal <i> Oh, hello honey! How was your day? </i>",
+		"y Exhausting.",
+		"y Strange things keep happening, and...",
+		"y I had this weird feeling- ",
+		"d:normal <i> Oh, let it go, don't think about this. You're home now.</i> ",
+		"d:normal <i>Come eat something!</i>",
 		// 16
 		'show background Cuisine',
-		"Wh... what is this?",
-		"d Oh, this little plant! A man on on the streets was seeling them.",
-		"d I think it's nice... And it was so cheap! It warms the room, don't you think?",
-		"...",
-		"... yeah.",
+		"y Wh... what is this?",
+		"d:normal <i>Oh, this little plant! A man on on the streets was selling them.</i>",
+		"d:normal <i>I think it's nice... And it was so cheap! It warms the room, don't you think?</i>",
+		"y ...",
+		"y ... yeah.",
 		// 17
-		"d Oh, my! I really wanted to make some hummus bus I forgot the chick peas!",
-		"d Could you go buy some?",
-		"... OK, I won't be long.",
+		"d:normal <i>Oh, my! I really wanted to make some hummus but I forgot the chick peas!</i>",
+		"d:normal <i>Could you go buy some?</i>",
+		"y ... OK, I won't be long.",
+	],
+
+	'supermarket' : [
 		// 18
+		'show background Floor3_dead',
+		'wait 1500',
+		'show background Elevator with shake-horizontal 2',
+		'wait 1000',
+		'play sound bell',
+		'wait 1000',
+		'show background Rue',
+		'wait 1500',
+		'show background Rue2',
+		'wait 1500',
 		// mort de l'ascenseur
 		// mort de la rue
 		// 19
+		'stop music Begin',
+		'play music Supermarket loop',
+		'show background super',
 		"Again?!",
-		// TODO
 		'show image gun bottom',
-		'wait 1000',
-		'hide image afraid_man',
-		'show image dead_man center', 
-		'show image gun bottom',
+		'wait 900',
+		'play sound gunshot',
+		'wait 100',
+		'show background super_dead',
 		'wait 1000',
 		'hide image gun',
+		"This is becoming mildly repetitive.",
+		'clear',
+		// 20
+		'show background caisse',
+		'wait 2000',
+		'..',
+		'wait 1000',
+		'...',
+		'wait 1000',
+		'!!',
+		'wait 2000',
+		"It's my turn finally.",
+		'stop music Supermarket',
+		'jump back_home',
+	],
 
+	'back_home' : [
+		'show background Entree_0 with fadeIn',
+		'I can wait to eat that hummus. Darling is such a wonderful cook.',
 		//20
+		'show background Jenkins-reveal1',
+		'play sound dundundun',
 		// avec masque
 		// 21.2 sans masque
-		'Oh no!',
+		'Oh no! Not you!',
+		'show background Jenkins-reveal2',
+
 		'show image gun bottom',
-		'wait 1000',
-		'hide image afraid_man',
-		'show image dead_man center', 
-		'show image gun bottom',
-		'wait 1000',
+		'wait 200',
+		'play sound gunshot',
+		'wait 400',
+		'play sound gunshot',
+		'wait 800',
 		'hide image gun',
+		'Poor Mrs. Jenkins... You bastards!!',
 
 		// 21
-		'stop music Begin',
-		"Honey ! Things are really getting weird out there !",
+		'stop music Supermarket',
+		'show background Home-no-darling',
+		"y Honey! Things are really getting weird out there!",
 		// 21.5
-		"Honey?",
+		"y Honey?",
 		// 22
-		"Hon...",
-		"No, no...",
-		'start music Main loop',
+		"y Hon...",
+		"y No, no...",
+		'show background darling_dead',
+		'play music Main loop',
 		// changement de musique
-		"NOOOOOO !",
-
+		"y NOOOOOO!",
+		'show background darling_dead_flou',
+		"wait 3000",
 
 		'jump credits'
 	],	
